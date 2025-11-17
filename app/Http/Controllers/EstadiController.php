@@ -37,7 +37,16 @@ class EstadiController extends Controller
             'ciudad'=>'required',
             'aforo'=>'required|integer|min:0',
             'equip'=>'required',
-        ])
+        ]);
+
+        $estadis = Session::get('estadis', $this->estadis);
+        $estadis[]= $validated;
+
+        Session::put('estadis',$estadis);
+
+        return redirect()
+        ->route('estadis.index')
+        ->with('success', 'Estadi afegit correctament');
 
     }
 }
